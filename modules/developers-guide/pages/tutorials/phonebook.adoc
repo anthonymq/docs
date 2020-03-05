@@ -1,7 +1,6 @@
 = Importing standard library functions
-December 2019 (Alpha)
+March 2020 (Alpha)
 ifdef::env-github,env-browser[:outfilesuffix:.adoc]
-:linkedcss:
 :toc:
 :toc: right
 :toc-title: TUTORIAL - STANDARD LIBRARY
@@ -107,7 +106,7 @@ To modify the default template source code:
 +
 [source,motoko]
 ----
-include::example$phonebook.mo
+include::example$phonebook.mo[]
 ----
 
 == Build and deploy the program
@@ -209,6 +208,8 @@ For example:
 ----
 
 include::example$candid-ui.adoc[]
++
+image:candid-phonebook.png[Phonebook functions]
 
 == Stop the local network
 
