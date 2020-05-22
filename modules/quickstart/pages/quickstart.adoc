@@ -1,28 +1,19 @@
-= Quick start
-March 2020 (Alpha)
+= Hackathon Quick Start
 :toc:
-:toc: right
-:toc-title: QUICK START
+:toc-title: HACKATHON
 :toclevels: 3
 :proglang: Motoko
 :platform: Internet Computer platform
 :IC: Internet Computer
-:ext: .mo
 :company-id: DFINITY
 :sdk-short-name: DFINITY Canister SDK
 :sdk-long-name: DFINITY Canister Software Development Kit (SDK)
 ifdef::env-github,env-browser[:outfilesuffix:.adoc]
 
 [[quick-start-intro]]
-This {sdk-long-name} is an Alpha release that provides tools, sample code, and documentation to help you create programs to run on a *locally-deployed* {IC} replica node.
+The {sdk-long-name} provides tools, sample code, and documentation to help you create programs to run on a *locally-deployed* {IC} replica node.
 
-IMPORTANT: For this *Alpha* release, only *macOS* and *Linux* platforms are supported. In addition, you won’t be able to install your programs on an externally-managed Developer Network just yet, but that capability is coming soon.
-
-By developing programs that run on the {platform}, you can deploy secure, tamper-proof applications and provide web-based services without the restrictions or expense of a proprietary infrastructure, the complexities of database management and maintenance, or the investment in hardware required to run enterprise-scale software.
-
-If you want to learn more about the {platform} and how it can transform distributed computing and the application landscape, check out link:https://dfinity.org/faq[Frequently Asked Questions] or the videos posted on the https://www.youtube.com/channel/UCOyguKlTxoDK3HRzmGbLyAg[DFINITY Official Youtube Channel].
-
-If you are ready to start developing applications that run on the {platform}, it only takes a few minutes to get up and running.
+IMPORTANT: Only *macOS* and *Linux* platforms are supported. 
 
 [[before-you-begin]]
 == Before you begin
@@ -30,21 +21,83 @@ If you are ready to start developing applications that run on the {platform}, it
 Before you download and install this release of the SDK, verify the following:
 
 * You have an internet connection and access to a shell terminal on your local macOS or Linux computer.
+
 * You should have `+node.js+` installed if you want to include the default template files for front-end development in your project.
+
+If you aren't sure how to open a new terminal shall on your local computer or how to install `node.js`, see <<Preliminary steps for newcomers>>.
+If you are comfortable meeting the prerequisites without instructions, continue to <<Download and install>>.
+
+[[newcomers]]
+== Preliminary steps for newcomers
+If this is the first time you are installing developer tools on your computer, you might need to take a few extra steps to prepare your environment.
+The instructions here assume that you are using a macOS computer. 
+
+To prepare a development environment on macOS:
+
+. Open a new terminal using the Terminal application. 
++
+For example, open Applications, Utilities, then double-click *Terminal* or press Command+spacebar to open Search, then type `terminal`.
++
+The terminal is where you are going to execute command-line instructions. 
+To execute a command, you type or copy and paste an instruction, then press Enter.
+. Check whether you have the Homebrew package manager installed by running the following command:
++
+[source,bash]
+----
+brew --version
+----
++
+If the command returns version information, continue to the next step.
+If Homebrew isn't installed, copy and paste the following command in your terminal:
++
+[source,bash]
+----
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+----
+. Check whether you have the `node.js` package manager installed by running the following command:
++
+[source,bash]
+----
+node --version
+----
++
+If the command returns version information, continue to the next step.
+If `node.js` isn't installed, copy and paste the following command in your terminal:
++
+[source,bash]
+----
+brew install node
+----
+. Create a working folder in your home directory.
++
+By default, a new terminal shell always opens your home directory with a path like `/Users/<your-user-name>`.
++
+You can create a folder called `ic-hackathon` in the directory by running the following command:
++
+[source,bash]
+----
+mkdir ic-hackathon
+----
+. Change to the new working folder to keep your workspace tidy by running the following command:
++
+[source,bash]
+----
+cd ic-hackathon
+----
+
+Now you're ready to install the {sdk-short-name} and get coding!
 
 [[download-and-install]]
 == Download and install
 
-The most straightforward option for accessing the {sdk-long-name} is to download the SDK package from within a terminal shell on your local computer.
-With this installation option, you can be logged on as any user and no additional software is required.
+If you haven't already done so, the first step is to download the SDK package so that it is available on your local computer.
 
-To download and install from a terminal shell:
+To download and install:
 
 [arabic]
 . Open a terminal shell on your local computer.
 +
-For example, on macOS open the Applications folder, then open Utilities
-and double-click *Terminal*.
+For example, open Applications, Utilities, then double-click *Terminal* or press Command+spacebar to open Search, then type `terminal`.
 . Download and install the SDK package by running the following command:
 +
 [source,bash]
@@ -53,14 +106,7 @@ sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
 ----
 +
 This command prompts you to read and accept the license agreement before installing the `+dfx+` command-line interface executable and its dependencies on your local computer.
-. Review the license agreement, then type `+y+` and press Enter if you want to continue with the installation.
-+
-[source,bash]
-----
-Do you agree and wish to install the DFINITY ALPHA SDK [y/N]?
-----
-+ The default response is No.
-You must type `+y+` and press Enter to continue.
+. Type `+y+` and press Enter to continue with the installation.
 +
 The command displays information about the components being installed on the local computer.
 
@@ -72,8 +118,7 @@ If the installation script runs without any errors, everything you need to start
 To verify the SDK is ready to use:
 
 [arabic]
-. Open a terminal shell on your local computer, if you don’t already
-have one open.
+. Open a terminal shell on your local computer, if you don’t already have one open.
 . Check that you have the SDK developer command-line interface installed and the executable is available in your PATH by running the following command:
 +
 [source,bash]
@@ -85,7 +130,7 @@ The command displays version information for the developer command-line interfac
 +
 [source,bash]
 ----
-dfx 0.5.4
+dfx 0.5.8
 ----
 . Preview usage information for the other developer command-line interface sub-commands by running the following command:
 +
@@ -104,6 +149,7 @@ You are now ready to create a new project for your first sample application.
 To create a new project directory for your first application:
 
 [arabic]
+. Open a terminal shell on your local computer, if you don’t already have one open.
 . Create a new project directory for your first application by running the following commands:
 +
 [source,bash]
@@ -112,8 +158,6 @@ dfx new hello
 ----
 +
 The `+dfx new hello+` command creates a new `+hello+` project with a default project directory, some template files, and a new Git repository for your project.
-+
-If you have `+node.js+` installed locally, creating a new project also adds some template front-end code and dependencies.
 . Change to your project directory by running the following command:
 +
 [source,bash]
@@ -128,6 +172,19 @@ Your new `+hello+` project includes a simple default program in the `+src/hello+
 
 To build the program executable:
 
+. Check that you are still in your project directory by running the following command:
++
+[source,bash]
+----
+pwd
+----
++
+You should see a path similar to the following:
++
+[source,bash]
+----
+/Users/<your-user-name>/ic-hackathon/hello
+----
 . View the contents of the source directory for your project directory by running the following command:
 +
 [source,bash]
@@ -143,9 +200,7 @@ For this _Quick start_, you only need to use the `+main.mo+` program.
 ----
 dfx build
 ----
-. Verify the command displays output indicating that the build is successful.
-+
-For example, if you have `+node.js+` installed you should see output similar to the following:
+You should see output similar to the following:
 +
 [source,bash]
 ----
@@ -160,6 +215,19 @@ Bundling frontend assets in the canister
 You now have a program that can be deployed on your local replica network.
 
 [arabic]
+. Check that you are still in your project directory by running the following command:
++
+[source,bash]
+----
+pwd
+----
++
+You should see a path similar to the following:
++
+[source,bash]
+----
+/Users/<your-user-name>/ic-hackathon/hello
+----
 . Start the {IC} network on your local computer by running the following command:
 +
 [source,bash]
@@ -182,12 +250,7 @@ You should see an installation confirmation message for your canister similar to
 +
 [source,bash]
 ----
-Installing code for canister hello, with canister_id ic:795EA5F537665EED24
-Mar 04 15:35:16.710 INFO Successfully inserted an
-ingress message into IngressPool, Application:
-ArtifactPool
-Mar 04 15:35:17.968 INFO Created checkpoint @168961 
-in 76.82103ms, StateManager: 1
+Installing code for canister hello, with canister_id ic:E4DA969A3F8A893397
 ----
 . Call the predefined `+greet+` method in the program by running the following command:
 +
@@ -203,14 +266,80 @@ For example:
 +
 [source,bash, subs="quotes"]
 ----
-Mar 04 15:43:51.826 INFO Successfully inserted an
-ingress message into IngressPool, Application:
-ArtifactPool
-Mar 04 15:43:52.779 INFO Created checkpoint @169984 
-in 68.44148ms, StateManager: 1
-(*"Hello, there!"*)
+("Hello, there!")
 ----
-. Stop the {IC} replica processes running on your local computer by running the following command:
+
+[[modify-the-program]]
+== Modify the code and re-deploy
+
+You now have compiled, deployed, and tested your first {proglang} program on your local replica network.
+The next step is to try modifying the template code and experimenting on your own.
+
+To modify the template source code:
+. Check that you are still in your project directory by running the following command:
++
+[source,bash]
+----
+pwd
+----
++
+You should see a path similar to the following:
++
+[source,bash]
+----
+/Users/<your-user-name>/ic-hackathon/hello
+----
+. Change to the source code directory for your project by running the following command:
++
+[source,bash]
+----
+cd src/hello
+----
+. Open the template `+main.mo+` file in a text editor and delete the existing content.
+. Copy and paste the following sample code into the `+main.mo+` file:
++
+[source,motoko]
+----
+include::example$actor_hello.mo[]
+----
++
+This code sample uses the `+public query func+` to define a query method because, in this case, the `+actor_hello+` program doesn't make any changes to the state of the canister or perform any operations that would update the data you are accessing.
++
+For more information about using a query call, see link:../introduction-key-concepts{outfilesuffix}#query-calls[query calls] in link:../introduction-key-concepts{outfilesuffix}#canister-state[Canisters include both program and state].
+. Build the WebAssembly executable by running the following command:
++
+[source,bash]
+----
+dfx build --skip-frontend
+----
+. Deploy your updated `+hello+` project on the local network by running the following command:
++
+[source,bash]
+----
+dfx canister install hello
+----
+. Use `+dfx canister call+` to call the `+myhello+` function by running the following command:
++
+[source,bash]
+----
+dfx canister call hello myhello
+----
++
+Verify the program displays output similar to the following:
++
+[source,bash]
+----
+debug.print: Hello, World! from DFINITY
+----
+
+[[stop-the-local-replica]]
+== Stop the local replica
+
+After you finish experimenting with your program, you can stop the local replica process so that it doesn't continue running in the background.
+
+To stop the replica:
+. In the terminal, press Control-C to interrupt the local replica process.
+. Stop the local replica by running the following command:
 +
 [source,bash]
 ----
@@ -221,8 +350,5 @@ dfx stop
 == Next steps
 
 This _Quick start_ touched on only a few key steps to introduce the basic workflow you follow to develop programs of your own.
-There are more detailed examples and tutorials for you to explore in the link:../developers-guide/introduction-key-concepts{outfilesuffix}[_Developer’s Guide_] and in the link:../language-guide/motoko{outfilesuffix}[_{proglang} Programming Language Guide_].
 
-* Have questions? mailto:support@dfinity.org?subject=Quickstart[Contact us].
-* Want to join the community? Visit our https://forum.dfinity.org/[community forum].
-* Want to stay informed about new features and updates? Sign up for https://dfinity.org/newsletter[Developer updates].
+To explore further, see the tutorials in the link:../developers-guide/tutorials-intro{outfilesuffix}[_SDK Developer Tools_] and examples in the link:../language-guide/motoko{outfilesuffix}[_{proglang} Programming Language Guide_].
