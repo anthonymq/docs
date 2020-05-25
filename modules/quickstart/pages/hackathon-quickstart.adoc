@@ -1,5 +1,6 @@
 = Hackathon Quick Start
 :toc:
+:toc: left
 :toc-title: HACKATHON
 :toclevels: 3
 :proglang: Motoko
@@ -11,9 +12,9 @@
 ifdef::env-github,env-browser[:outfilesuffix:.adoc]
 
 [[quick-start-intro]]
-The {sdk-long-name} provides tools, sample code, and documentation to help you create programs to run on a *locally-deployed* {IC} replica node.
+The {sdk-long-name} provides tools, sample code, and documentation to help you create programs to run on a *locally-deployed* {IC} replica.
 
-IMPORTANT: Only *macOS* and *Linux* platforms are supported. 
+NOTE: Only *macOS* and *Linux* platforms are supported. 
 
 [[before-you-begin]]
 == Before you begin
@@ -28,18 +29,53 @@ If you aren't sure how to open a new terminal shall on your local computer or ho
 If you are comfortable meeting the prerequisites without instructions, continue to <<Download and install>>.
 
 [[newcomers]]
-== Preliminary steps for newcomers
+=== Preliminary steps for newcomers
+
 If this is the first time you are installing developer tools on your computer, you might need to take a few extra steps to prepare your environment.
-The instructions here assume that you are using a macOS computer. 
 
-To prepare a development environment on macOS:
+NOTE: The instructions here assume that you are using a macOS computer.
 
-. Open a new terminal using the Terminal application. 
+Before you install the {sdk-short-name}, you need to know:
+
+* How to open and run commands in a terminal
+* How to check for and install packages and dependencies
+* How to create and navigate to new directories
+
+The steps in this section describe how to prepare a basic development environment.
+
+==== Open a terminal
+
+To open the Terminal application on macOS:
+
+. Open the Finder. 
+. Click *Applications*, open *Utilities*, then double-click *Terminal*.
 +
-For example, open Applications, Utilities, then double-click *Terminal* or press Command+spacebar to open Search, then type `terminal`.
+Alternatively, you can press the [Command] and [spacebar] keyboard keys to open Search, then type `terminal`.
 +
 The terminal is where you are going to execute command-line instructions. 
 To execute a command, you type or copy and paste an instruction, then press Enter.
+. Check your current path by running the print working directory–`pwd`—command, then pressing Enter.
++
+[source,bash]
+----
+pwd
+----
++
+This command displays your current directory with a path like `/Users/<your-user-name>`.
++
+After you open the Terminal application, you can open new terminal shell at any time by clicking *Shell*, then selecting *New Window* or *New Tab*.
++
+By default, a new terminal shell always opens in your home directory with a path like `/Users/<your-user-name>`.
+
+==== Check for packages
+
+The Homebrew application is a package manager for macOS that makes it easy to install and update packages—that is, external programs—that you need to have available in a local development environment.
+
+The `node.js` package provides a JavaScript runtime environment and modules for front-end user interface development. 
+The `node.js` package is not required to build programs, but you'll probably need it is you want to add a graphical user interface to your program.
+
+To check and install packages:
+
 . Check whether you have the Homebrew package manager installed by running the following command:
 +
 [source,bash]
@@ -68,17 +104,22 @@ If `node.js` isn't installed, copy and paste the following command in your termi
 ----
 brew install node
 ----
-. Create a working folder in your home directory.
-+
-By default, a new terminal shell always opens your home directory with a path like `/Users/<your-user-name>`.
-+
-You can create a folder called `ic-hackathon` in the directory by running the following command:
+
+==== Create a working folder
+
+By default, a new terminal shell always opens in your home directory with a path like `/Users/<your-user-name>`.
+To keep your workspace tidy, you can create a separate folder for your Hackathon projects.
+
+To create a new working folder:
+
+. Open a terminal shell on your local computer, if you don’t already have one open.
+. Create a new folder called `ic-hackathon` in your homw directory by running the following command:
 +
 [source,bash]
 ----
 mkdir ic-hackathon
 ----
-. Change to the new working folder to keep your workspace tidy by running the following command:
+. Change to the new working folder by running the following command:
 +
 [source,bash]
 ----
@@ -88,14 +129,14 @@ cd ic-hackathon
 Now you're ready to install the {sdk-short-name} and get coding!
 
 [[download-and-install]]
-== Download and install
+=== Download and install
 
-If you haven't already done so, the first step is to download the SDK package so that it is available on your local computer.
+If you haven't already done so, download the SDK package so that it is available on your local computer.
 
 To download and install:
 
 [arabic]
-. Open a terminal shell on your local computer.
+. Open a terminal shell on your local computer, if you don’t already have one open.
 +
 For example, open Applications, Utilities, then double-click *Terminal* or press Command+spacebar to open Search, then type `terminal`.
 . Download and install the SDK package by running the following command:
@@ -111,9 +152,9 @@ This command prompts you to read and accept the license agreement before install
 The command displays information about the components being installed on the local computer.
 
 [[verify-the-sdk-is-ready-to-use]]
-== Verify the SDK is ready to use
+=== Verify the SDK is ready to use
 
-If the installation script runs without any errors, everything you need to start developing programs that run on the {platform}  will be available on your local computer.
+If the installation script runs without any errors, everything you need to start developing programs that run on the {platform} will be available on your local computer.
 
 To verify the SDK is ready to use:
 
@@ -228,7 +269,7 @@ You should see a path similar to the following:
 ----
 /Users/<your-user-name>/ic-hackathon/hello
 ----
-. Start the {IC} network on your local computer by running the following command:
+. Start the {IC} replica on your local computer by running the following command:
 +
 [source,bash]
 ----
@@ -238,6 +279,13 @@ dfx start
 Depending on your platform and local security settings, you might see a warning displayed. 
 If you are prompted to allow or deny incoming network connections, click *Allow*.
 . Open a new terminal window or tab on your local computer and navigate to your project directory.
++
+For example, in the new terminaL, run the following command:
++
+[source,bash]
+----
+cd ~/ic-hackathon/hello
+----
 . Deploy the default program on the local network by running the following command:
 +
 [source,bash]
@@ -255,7 +303,7 @@ Installing code for canister hello, with canister_id ic:E4DA969A3F8A893397
 +
 [source,bash]
 ----
-dfx canister call hello greet "there" --type string
+dfx canister call hello greet '("there")'
 ----
 +
 This example uses the `+dfx canister call+` command to pass "there" as an argument of type `+string+` to the `+greet+` function.
@@ -263,7 +311,7 @@ This example uses the `+dfx canister call+` command to pass "there" as an argume
 +
 For example:
 +
-[source,bash, subs="quotes"]
+[source,bash]
 ----
 ("Hello, there!")
 ----
@@ -299,8 +347,8 @@ cd src/hello
 ----
 . Open the template `+main.mo+` file in a text editor and delete the existing content.
 +
-The program we are about to write using a function in the Motoko base library for natural numbers, so we want to import that module.
-. Add an import statement as the first line in your new program:
+The program we are about to write uses a function in the Motoko base library for natural numbers, so we want to import that module.
+. Add an `import` statement as the first line in your new program:
 +
 [source,bash]
 ----
@@ -335,22 +383,24 @@ actor HelloActor {
 };
 ----
 +
-In this code sample, the `whoami` function increments a counter using the `count +=1` expression. This operation is a state change so that function is an *update* call. 
+In this code sample, the `whoami` function increments a counter using the `count +=1` expression. 
+This operation is a state change, so the `whoami` function is an *update* call. 
 +
-The`get` function is only used to retrieve the counter value without making any changes to state, so that function is a *query* call.
+The `get` function is only used to retrieve the counter value without making any changes to state, so the `get` function is a *query* call.
 +
-Query calls return results faster, so in designing an application, you should consider where a query call might make your program more efficient. For more information about the difference between update and query calls, see link:https://sdk.dfinity.org/docs/developers-guide/introduction-key-concepts{outfilesuffix}#query-calls[query calls] in link:.https://sdk.dfinity.org/docs/developers-guide/introduction-key-concepts{outfilesuffix}#canister-state[Canisters include both program and state].
+Query calls return results faster.
+In designing an application, you should consider where a query call might make your program more efficient. 
++
+For more information about the difference between update and query calls, see link:https://sdk.dfinity.org/docs/developers-guide/introduction-key-concepts{outfilesuffix}#query-calls[query calls] in link:.https://sdk.dfinity.org/docs/developers-guide/introduction-key-concepts{outfilesuffix}#canister-state[Canisters include both program and state].
 +
 The `actor` in this code sample returns text, so both the `whoami` and `get` functions use the `Nat.toText` function from the natural numbers (`Nat`) base library to convert the `count` variable to text.
 +
-////
 If you want to copy and paste the whole program at once, it looks like this:
 +
 [source,motoko]
 ----
-include:hack-hello.mo[]
+include::example$hack-hello.mo[]
 ----
-////
 . Build the WebAssembly executable by running the following command:
 +
 [source,bash]
@@ -371,8 +421,9 @@ This command displays a confirmation message with a canister identifier similar 
 Installing code for canister hello, with canister_id ic:C1D9525294B323CA6D
 ----
 +
-Take note of the canister identifier (beginning with the `ic:` prefix) on paper or in a notepad application. We'll use this identifier a little later.
-. Use `+dfx canister call+` to call the `+whoami+` function with your name as an argument by running a command simimat to the following:
+Take note of the canister identifier (beginning with the `ic:` prefix) on paper or in a notepad application. 
+We'll use this identifier a little later.
+. Use `+dfx canister call+` to call the `+whoami+` function with your name as an argument by running a command similar to the following:
 +
 [source,bash]
 ----
@@ -385,6 +436,8 @@ Verify the program displays output similar to the following:
 ----
 ("Welcome to the DFINITY Hackathon, Jane: 1")
 ----
++
+You might want to repeat this command a few times to see the counter value increment.
 . Use `+dfx canister call+` to call the `+get+` function by running the following command:
 +
 [source,bash]
@@ -404,9 +457,12 @@ Verify the program displays output similar to the following:
 
 Congratulations are in order: you have just created your first *terminal application* using the {proglang} programming language.
 
+At this point, your program doesn't have a *front-end interface* that you might expect a web-based application to have, but you can still experiment with it in a browser using *Candid*.
+
 === Using Candid
 
-At this point, your program doesn't have a *front-end interface* that you might expect a web-based application to have, but you can still experiment with it in a browser using *Candid*.
+The Candid canister interface description language provides a web interface
+that allows you to call canister functions for testing your program without writing a custom front-end interface.
 
 To try out your program in a browser:
 
@@ -433,12 +489,12 @@ To build your own front-end user interface, you need to know a little about form
 You also need to be familiar with the Document Object Model (DOM) that defines the logical structure of documents and how to use JavaScript or JQuery to render and manipulate your front-end documents.
 
 In most cases, you will also want to use some type of web development framework like Bootstrap, React, Vue, or Angular. 
-These frameworks (and others) provide a toolbox for working with graphical elements like buttons, menus, and forms that are key components when building a modern front-end interface.
+These frameworks (and others) provide a toolbox for working with graphical elements—like buttons, menus, and forms—that are key components when building a modern front-end interface.
 
 You can find some examples for using React, HTML, and CSS in the following tutorial projects:
 
 * link:https://sdk.dfinity.org/docs/developers-guide/tutorials/custom-frontend{outfilesuffix}[Customizing the front-end]
-*link:.https://sdk.dfinity.org/docs/developers-guide/tutorials/my-contacts{outfilesuffix}#canister-state[Adding a stylesheet].
+* link:.https://sdk.dfinity.org/docs/developers-guide/tutorials/my-contacts{outfilesuffix}#canister-state[Adding a stylesheet].
 
 You can also explore the source code for the LinkedUp and Journey programs here:
 
@@ -448,9 +504,10 @@ You can also explore the source code for the LinkedUp and Journey programs here:
 [[stop-the-local-replica]]
 == Stop the local replica
 
-After you finish experimenting with your program, you can stop the local replica process so that it doesn't continue running in the background.
+After you finish experimenting with your program, you can stop the local replica so that it doesn't continue running in the background.
 
 To stop the replica:
+
 . In the terminal, press Control-C to interrupt the local replica process.
 . Stop the local replica by running the following command:
 +
@@ -464,4 +521,10 @@ dfx stop
 
 This _Quick start_ touched on only a few key steps to introduce the basic workflow you follow to develop programs of your own.
 
-To explore further, see the tutorials in the link:../developers-guide/tutorials-intro{outfilesuffix}[_SDK Developer Tools_] and examples in the link:../language-guide/motoko{outfilesuffix}[_{proglang} Programming Language Guide_].
+To explore further, check out the following resources:
+
+* link:https://sdk.dfinity.org/docs/developers-guide/tutorials-intro{outfilesuffix}[Tutorials]
+* link:https://github.com/dfinity/examples/tree/master/motoko[Motoko examples]
+* link:https://github.com/dfinity/examples/tree/master/c[C examples]
+* link:https://sdk.dfinity.org/docs/language-guide/motoko{outfilesuffix}[{proglang} Language Guide].
+* link:https://sdk.dfinity.org/docs/base-libraries/stdlib-intro{outfilesuffix}[{proglang} Base Library].

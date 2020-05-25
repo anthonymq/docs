@@ -1,1 +1,1 @@
-* xref:quickstart.adoc[Quick start]
+* xref:hackathon-quickstart.adoc[Hackathon Quick Start]
