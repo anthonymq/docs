@@ -232,13 +232,12 @@ You should see a path similar to the following:
 +
 [source,bash]
 ----
-dfx start --background
+dfx start
 ----
 +
 Depending on your platform and local security settings, you might see a warning displayed. 
 If you are prompted to allow or deny incoming network connections, click *Allow*.
-+
-The `+--background+` option starts {IC} replica processes then runs them in the background so that you can continue to the next step without opening another terminal shell on your local computer.
+. Open a new terminal window or tab on your local computer and navigate to your project directory.
 . Deploy the default program on the local network by running the following command:
 +
 [source,bash]
@@ -275,7 +274,10 @@ For example:
 You now have compiled, deployed, and tested your first {proglang} program on your local replica network.
 The next step is to try modifying the template code and experimenting on your own.
 
+To get you started, let's write a simple program that is similar to the default template but introduces a few new concepts and techniques.
+
 To modify the template source code:
+
 . Check that you are still in your project directory by running the following command:
 +
 [source,bash]
@@ -296,21 +298,64 @@ You should see a path similar to the following:
 cd src/hello
 ----
 . Open the template `+main.mo+` file in a text editor and delete the existing content.
++
+The program we are about to write using a function in the Motoko base library for natural numbers, so we want to import that module.
+. Add an import statement as the first line in your new program:
++
+[source,bash]
+----
+import Nat "mo:base/Nat";
+----
++
+The next step is to declare the variables and types that we want to use.
+. Add variable declarations for `count` as a natural number and `output` and `name` as text data types:
++
+[source,bash]
+----
+var count: Nat = 0;
+var output : Text = "Welcome to the DFINITY Hackathon, ";
+var name : Text = " ";
+----
++
+In the next step, we'll create an actor with two simple functions—`whoami` and `get`—to display a welcome message and increment a counter.
 . Copy and paste the following sample code into the `+main.mo+` file:
 +
 [source,motoko]
 ----
-include::example$actor_hello.mo[]
+actor HelloActor {
+
+   public func whoami(name: Text) : async Text {
+      count += 1; 
+      output # name # ": " # Nat.toText(count)
+   };
+
+   public query func get() : async Text {
+      output # "your counter value is: " # Nat.toText(count);
+   };
+};
 ----
 +
-This code sample uses the `+public query func+` to define a query method because, in this case, the `+actor_hello+` program doesn't make any changes to the state of the canister or perform any operations that would update the data you are accessing.
+In this code sample, the `whoami` function increments a counter using the `count +=1` expression. This operation is a state change so that function is an *update* call. 
 +
-For more information about using a query call, see link:../introduction-key-concepts{outfilesuffix}#query-calls[query calls] in link:../introduction-key-concepts{outfilesuffix}#canister-state[Canisters include both program and state].
+The`get` function is only used to retrieve the counter value without making any changes to state, so that function is a *query* call.
++
+Query calls return results faster, so in designing an application, you should consider where a query call might make your program more efficient. For more information about the difference between update and query calls, see link:https://sdk.dfinity.org/docs/developers-guide/introduction-key-concepts{outfilesuffix}#query-calls[query calls] in link:.https://sdk.dfinity.org/docs/developers-guide/introduction-key-concepts{outfilesuffix}#canister-state[Canisters include both program and state].
++
+The `actor` in this code sample returns text, so both the `whoami` and `get` functions use the `Nat.toText` function from the natural numbers (`Nat`) base library to convert the `count` variable to text.
++
+////
+If you want to copy and paste the whole program at once, it looks like this:
++
+[source,motoko]
+----
+include:hack-hello.mo[]
+----
+////
 . Build the WebAssembly executable by running the following command:
 +
 [source,bash]
 ----
-dfx build --skip-frontend
+dfx build
 ----
 . Deploy your updated `+hello+` project on the local network by running the following command:
 +
@@ -318,19 +363,87 @@ dfx build --skip-frontend
 ----
 dfx canister install hello
 ----
-. Use `+dfx canister call+` to call the `+myhello+` function by running the following command:
++
+This command displays a confirmation message with a canister identifier similar to the following:
 +
 [source,bash]
 ----
-dfx canister call hello myhello
+Installing code for canister hello, with canister_id ic:C1D9525294B323CA6D
+----
++
+Take note of the canister identifier (beginning with the `ic:` prefix) on paper or in a notepad application. We'll use this identifier a little later.
+. Use `+dfx canister call+` to call the `+whoami+` function with your name as an argument by running a command simimat to the following:
++
+[source,bash]
+----
+dfx canister call hello whoami '("YOUR-NAME")'
 ----
 +
 Verify the program displays output similar to the following:
 +
 [source,bash]
 ----
-debug.print: Hello, World! from DFINITY
+("Welcome to the DFINITY Hackathon, Jane: 1")
 ----
+. Use `+dfx canister call+` to call the `+get+` function by running the following command:
++
+[source,bash]
+----
+dfx canister call hello get
+----
++
+Verify the program displays output similar to the following:
++
+[source,bash]
+----
+("Welcome to the DFINITY Hackathon, your counter value is: 1")
+----
+
+[[front-end]]
+== Build a front-end user interface
+
+Congratulations are in order: you have just created your first *terminal application* using the {proglang} programming language.
+
+=== Using Candid
+
+At this point, your program doesn't have a *front-end interface* that you might expect a web-based application to have, but you can still experiment with it in a browser using *Candid*.
+
+To try out your program in a browser:
+
+. Open a browser tab and navigate to the default host name and port, localhost:8000 or 127.0.0.1:8000.
+. Add the `+candid+` endpoint to access the Candid web interface followed by the required `canisterId` parameter and canister identifier.
++
+For example, the full URL should look similar to the following but with the `+ic:_canister_identifier_+` that was returned by the `+dfx canister install+` command:
++
+[source,bash]
+----
+http://localhost:8000/candid?canisterId=<YOUR-CANISTER-IDENTIFIER>
+----
++
+The browser displays your program in a form similar to the following:
++
+image:hack-candid.png[]
+. Type a name for the `whoami` function, then click *Call* to see the result. 
+. Delete the text from the `whoami` function, then click *Lucky* to generate a random text value and see the result.
+. Click *Query* for the `get` function.
+
+=== Building your own front-end
+
+To build your own front-end user interface, you need to know a little about formatting using markup languages like HTML and cascading stylesheets (CSS). 
+You also need to be familiar with the Document Object Model (DOM) that defines the logical structure of documents and how to use JavaScript or JQuery to render and manipulate your front-end documents.
+
+In most cases, you will also want to use some type of web development framework like Bootstrap, React, Vue, or Angular. 
+These frameworks (and others) provide a toolbox for working with graphical elements like buttons, menus, and forms that are key components when building a modern front-end interface.
+
+You can find some examples for using React, HTML, and CSS in the following tutorial projects:
+
+* link:https://sdk.dfinity.org/docs/developers-guide/tutorials/custom-frontend{outfilesuffix}[Customizing the front-end]
+*link:.https://sdk.dfinity.org/docs/developers-guide/tutorials/my-contacts{outfilesuffix}#canister-state[Adding a stylesheet].
+
+You can also explore the source code for the LinkedUp and Journey programs here:
+
+* link:https://github.com/dfinity-lab/linkedup/tree/master/src/linkedup/public[LinkedUp front-end source code folder]
+* link:https://github.com/hansl/journey/tree/master/src/journey/public[Journey blog engine front-end source code folder]
 
 [[stop-the-local-replica]]
 == Stop the local replica
