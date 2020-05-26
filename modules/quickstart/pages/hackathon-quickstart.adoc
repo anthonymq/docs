@@ -478,7 +478,7 @@ http://localhost:8000/candid?canisterId=<YOUR-CANISTER-IDENTIFIER>
 +
 The browser displays your program in a form similar to the following:
 +
-image::hack-candid.png[]
+image::hack-candid.png[Candid,align="left"]
 
 . Type a name for the `whoami` function, then click *Call* to see the result. 
 . Delete the text from the `whoami` function, then click *Lucky* to generate a random text value and see the result.
