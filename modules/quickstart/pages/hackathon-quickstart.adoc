@@ -479,7 +479,7 @@ http://localhost:8000/candid?canisterId=<YOUR-CANISTER-IDENTIFIER>
 The browser displays your program in a form similar to the following:
 +
 
-[.left]
+[role="hack"]
 image::hack-candid.png[Candid,442,284]
 
 . Type a name for the `whoami` function, then click *Call* to see the result. 
