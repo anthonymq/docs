@@ -105,6 +105,8 @@ If `node.js` isn't installed, copy and paste the following command in your termi
 brew install node
 ----
 
+NOTE: If your development environment is Linux, you can use `nix-env -i` instead of Homebrew to install packages.
+
 ==== Create a working folder
 
 By default, a new terminal shell always opens in your home directory with a path like `/Users/<your-user-name>`.
@@ -181,6 +183,22 @@ dfx --help
 ----
 +
 The command displays usage information for the `+dfx+` parent command and its subcommands.
+
+[[install-vscode]]
+== Install the VSCode language plug-in
+If you are planning to write a program using {proglang} and use Visual Studio Code (VSCode) as your editor, you can install the {proglang} language client plug-in for VSCode.
+The {proglan} plug-in provides syntax highlighting, type information, and auto-completion features.
+
+To install the plug-in:
+
+. Download and install link:https://code.visualstudio.com/download[Visual Studio], if it not already installed on your local computer.
+. Click View, then select **Extensions**.
+. Type `motoko` in the Search field.
+. Select the **Motoko language support** published by DFINITY Foundation, then click **Install**.
+
+If your program has dependencies, you might also want to install the Vessel package manager for {proglang}.
+For instructions, see the link:https://github.com/kritzcreek/vessel[ReadMe].
+To download the latest release, go to the link:https://github.com/kritzcreek/vessel/releases[vessel] GitHub repository.
 
 [[create-a-new-project]]
 == Create a new project
