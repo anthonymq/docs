@@ -147,7 +147,7 @@ For example, open Applications, Utilities, then double-click *Terminal* or press
 +
 [source,bash]
 ----
-sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
+DFX_VERSION=0.5.8 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
 ----
 +
 This command prompts you to read and accept the license agreement before installing the `+dfx+` command-line interface executable and its dependencies on your local computer.
