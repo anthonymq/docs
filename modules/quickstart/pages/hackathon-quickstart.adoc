@@ -549,5 +549,5 @@ To explore further, check out the following resources:
 * link:https://sdk.dfinity.org/docs/developers-guide/tutorials-intro{outfilesuffix}[Tutorials]
 * link:https://github.com/dfinity/examples/tree/master/motoko[Motoko examples]
 * link:https://github.com/dfinity/examples/tree/master/c[C examples]
-* link:https://sdk.dfinity.org/docs/language-guide/motoko{outfilesuffix}[{proglang} Language Guide].
-* link:https://sdk.dfinity.org/docs/base-libraries/stdlib-intro{outfilesuffix}[{proglang} Base Library].
+* link:https://sdk.dfinity.org/docs/language-guide/motoko{outfilesuffix}[{proglang} Language Guide]
+* link:https://sdk.dfinity.org/docs/base-libraries/stdlib-intro{outfilesuffix}[{proglang} Base Library]
