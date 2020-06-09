@@ -142,7 +142,7 @@ To download and install:
 [arabic]
 . Open a terminal shell on your local computer, if you don’t already have one open.
 +
-For example, open Applications, Utilities, then double-click *Terminal* or press Command+spacebar to open Search, then type `terminal`.
+For example, open Applications, Utilities, then double-click *Terminal* or press kbd:[Command+spacebar] to open Search, then type `terminal`.
 . Download and install the SDK package by running the following command:
 +
 [source,bash]
