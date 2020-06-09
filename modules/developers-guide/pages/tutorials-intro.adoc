@@ -14,7 +14,7 @@ December 2019 (Alpha)
 //:icons: font
 ifdef::env-github,env-browser[:outfilesuffix:.adoc]
 
-The sample program in the link:quickstart/hackathon-quick-start{outfilesuffix}[Quick start] illustrated the basic work flow for creating projects and deploying sample code to run on an {IC} node.
+The sample program in the link:../quickstart/hackathon-quickstart{outfilesuffix}[Quick start] illustrated the basic work flow for creating projects and deploying sample code to run on an {IC} node.
 
 In the tutorials, you can explore writing some simple programs to give you hands-on experience working with {proglang} and writing programs to run the the {IC}. 
 One of the keys for writing programs in {proglang} is that it is optimized for handling asynchronous messaging while maintaining type soundness and an approachable interface with language conventions that look familiar to most developers.
